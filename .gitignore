@@ -1,0 +1,11 @@
+# Junk
+desktop.ini
+Thumbs.db
+.DS_Store
+
+# Editor / local
+.claude/
+
+# Carpeta de inspiración/diseño (no es parte del sitio)
+Paginas Para Copiar e Inspirarse/
+assets/feathers-raw/
