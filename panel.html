@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>North Bryz — Panel de turnos</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap">
+<style>
+:root{--cream:#F6EFE6;--card:#fff;--ink:#2B2723;--muted:#867B70;--tan:#C4A088;--tan-deep:#A9836A;--line:#E9E0D1;
+  --ok:#2f9e52;--ok-bg:#e7f3ea;--warn:#c9902f;--warn-bg:#f7efdc;--bad:#c15a48;--bad-bg:#f6e7e1}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:"Poppins",system-ui,sans-serif;line-height:1.5}
+.wrap{max-width:900px;margin:0 auto;padding:24px 18px 60px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+.brand{display:flex;align-items:center;gap:9px;font-family:"Playfair Display",serif;font-weight:700;font-size:22px}
+.brand svg{color:var(--tan)}
+h1{font-family:"Playfair Display",serif;font-weight:600;font-size:15px;color:var(--muted);margin:0;font-weight:500}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 18px;flex:1;min-width:120px}
+.stat .n{font-family:"Playfair Display",serif;font-size:26px;font-weight:700}
+.stat .l{font-size:12px;color:var(--muted)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.fbtn{padding:8px 15px;border-radius:100px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font-family:"Poppins";font-size:13px;cursor:pointer}
+.fbtn.on{background:var(--tan);color:#fff;border-color:var(--tan)}
+.spacer{flex:1}
+.add-btn{padding:9px 16px;border-radius:100px;border:0;background:var(--ink);color:#fff;font-family:"Poppins";font-weight:500;font-size:13px;cursor:pointer}
+.day-group{margin-bottom:20px}
+.day-h{font-family:"Poppins";font-weight:600;font-size:13px;color:var(--tan-deep);text-transform:capitalize;margin:0 0 10px;letter-spacing:.02em}
+.row{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:14px;margin-bottom:9px;flex-wrap:wrap}
+.row .hora{font-family:"Playfair Display",serif;font-weight:700;font-size:20px;min-width:64px}
+.row .info{flex:1;min-width:150px}
+.row .info .t{font-weight:600;font-size:14.5px}
+.row .info .n{font-size:13px;color:var(--muted)}
+.badge{font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:.04em}
+.badge.pendiente{background:var(--warn-bg);color:var(--warn)}
+.badge.confirmado{background:var(--ok-bg);color:var(--ok)}
+.badge.cancelado{background:var(--bad-bg);color:var(--bad)}
+.acts{display:flex;gap:7px}
+.acts button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:#fff;cursor:pointer;display:grid;place-items:center;color:var(--muted)}
+.acts button:hover{color:var(--ink);border-color:var(--tan)}
+.acts .ok:hover{color:var(--ok);border-color:var(--ok)}
+.acts .no:hover{color:var(--bad);border-color:var(--bad)}
+.empty{text-align:center;color:var(--muted);padding:50px 0;font-size:15px}
+.note{background:#fff;border:1px dashed var(--tan);border-radius:12px;padding:14px 16px;font-size:12.5px;color:var(--muted);margin-top:26px}
+dialog{border:0;border-radius:20px;padding:26px;max-width:400px;width:92%;box-shadow:0 30px 70px -25px rgba(43,39,35,.6)}
+dialog::backdrop{background:rgba(43,39,35,.5)}
+dialog h3{font-family:"Playfair Display",serif;margin:0 0 16px}
+dialog label{display:block;font-size:12px;color:var(--muted);margin:12px 0 5px}
+dialog input,dialog select{width:100%;padding:11px 13px;border-radius:10px;border:1.5px solid var(--line);font-family:"Poppins";font-size:14px}
+.dlg-acts{display:flex;gap:10px;margin-top:20px}
+.dlg-acts button{flex:1;padding:12px;border-radius:100px;border:0;font-family:"Poppins";font-weight:600;cursor:pointer}
+.dlg-acts .save{background:var(--tan);color:#fff}
+.dlg-acts .cancel{background:var(--line);color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C7 6 4 9 4 14a8 8 0 0 0 16 0c0-5-3-8-8-12Zm0 4c2.5 2.2 4 4.3 4 8a4 4 0 0 1-8 0c0-3.7 1.5-5.8 4-8Z"/></svg> North Bryz</div>
+    <h1>Panel de turnos · Recepción</h1>
+  </header>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="bar">
+    <button class="fbtn on" data-f="activos">Activos</button>
+    <button class="fbtn" data-f="pendiente">Pendientes</button>
+    <button class="fbtn" data-f="confirmado">Confirmados</button>
+    <button class="fbtn" data-f="todos">Todos</button>
+    <span class="spacer"></span>
+    <button class="add-btn" id="addBtn">+ Turno manual</button>
+  </div>
+
+  <div id="list"></div>
+
+  <div class="note">⚠️ Prototipo: los turnos se guardan en este navegador (localStorage). Para que recepción vea los turnos que reservan los clientes desde su celular, hay que conectar una base compartida (ver plan). Mientras tanto sirve para demostrar el flujo completo.</div>
+</div>
+
+<dialog id="dlg">
+  <h3>Turno manual</h3>
+  <label>Nombre</label><input id="dName" placeholder="Nombre y apellido">
+  <label>Tratamiento</label><select id="dTreat"></select>
+  <label>Fecha</label><input id="dDate" type="date">
+  <label>Horario</label><select id="dTime"></select>
+  <div class="dlg-acts"><button class="cancel" id="dCancel">Cancelar</button><button class="save" id="dSave">Guardar</button></div>
+</dialog>
+
+<script>
+var STORE='nb_reservas';
+var TREATS=['Valoración inicial (sin cargo)','Limpieza facial profunda','Radiofrecuencia facial','Moldeo corporal (Velashape II)','Tonificación muscular (CM Slim)','Rejuvenecimiento facial (Fraxface)','Depilación láser'];
+var DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+var filter='activos';
+function load(){try{return JSON.parse(localStorage.getItem(STORE))||[]}catch(e){return[]}}
+function save(a){localStorage.setItem(STORE,JSON.stringify(a))}
+function setEstado(id,est){var a=load();a.forEach(function(x){if(x.id===id)x.estado=est});save(a);render()}
+function del(id){var a=load().filter(function(x){return x.id!==id});save(a);render()}
+function fechaTxt(f){var d=new Date(f+'T00:00');return DIAS[d.getDay()]+' '+d.getDate()+'/'+(d.getMonth()+1)}
+
+function render(){
+  var all=load();
+  var act=all.filter(function(x){return x.estado!=='cancelado'});
+  var pen=act.filter(function(x){return x.estado==='pendiente'});
+  var con=act.filter(function(x){return x.estado==='confirmado'});
+  document.getElementById('stats').innerHTML=
+    '<div class="stat"><div class="n">'+act.length+'</div><div class="l">Turnos activos</div></div>'+
+    '<div class="stat"><div class="n" style="color:var(--warn)">'+pen.length+'</div><div class="l">Pendientes</div></div>'+
+    '<div class="stat"><div class="n" style="color:var(--ok)">'+con.length+'</div><div class="l">Confirmados</div></div>';
+
+  var rows=all.filter(function(x){
+    if(filter==='todos')return true;
+    if(filter==='activos')return x.estado!=='cancelado';
+    return x.estado===filter;
+  }).sort(function(a,b){return (a.fecha+a.hora).localeCompare(b.fecha+b.hora)});
+
+  var box=document.getElementById('list');
+  if(!rows.length){box.innerHTML='<div class="empty">No hay turnos para mostrar.</div>';return}
+  var html='',lastDay='';
+  rows.forEach(function(r){
+    if(r.fecha!==lastDay){if(lastDay)html+='</div>';html+='<div class="day-group"><div class="day-h">'+fechaTxt(r.fecha)+'</div>';lastDay=r.fecha}
+    html+='<div class="row">'+
+      '<div class="hora">'+r.hora+'</div>'+
+      '<div class="info"><div class="t">'+r.tratamiento+'</div><div class="n">'+r.nombre+'</div></div>'+
+      '<span class="badge '+r.estado+'">'+r.estado+'</span>'+
+      '<div class="acts">'+
+        (r.estado!=='confirmado'?'<button class="ok" title="Confirmar" onclick="setEstado('+r.id+',\'confirmado\')">✓</button>':'')+
+        (r.estado!=='cancelado'?'<button class="no" title="Cancelar" onclick="setEstado('+r.id+',\'cancelado\')">✕</button>':'')+
+        '<button title="Borrar" onclick="del('+r.id+')">🗑</button>'+
+      '</div></div>';
+  });
+  html+='</div>';
+  box.innerHTML=html;
+}
+
+document.querySelectorAll('.fbtn').forEach(function(b){b.onclick=function(){filter=b.dataset.f;document.querySelectorAll('.fbtn').forEach(function(x){x.classList.remove('on')});b.classList.add('on');render()}});
+
+// alta manual
+var dlg=document.getElementById('dlg');
+document.getElementById('dTreat').innerHTML=TREATS.map(function(t){return '<option>'+t+'</option>'}).join('');
+document.getElementById('dTime').innerHTML=[9,10,11,12,13,14,15,16,17,18,19].map(function(h){return '<option>'+('0'+h).slice(-2)+':00</option>'}).join('');
+document.getElementById('addBtn').onclick=function(){document.getElementById('dDate').value=new Date().toISOString().slice(0,10);dlg.showModal()};
+document.getElementById('dCancel').onclick=function(){dlg.close()};
+document.getElementById('dSave').onclick=function(){
+  var n=document.getElementById('dName').value.trim();if(!n)return;
+  var a=load();a.push({id:Date.now(),fecha:document.getElementById('dDate').value,hora:document.getElementById('dTime').value,tratamiento:document.getElementById('dTreat').value,nombre:n,estado:'confirmado'});save(a);
+  document.getElementById('dName').value='';dlg.close();render();
+};
+window.addEventListener('storage',render);
+render();
+</script>
+</body>
+</html>

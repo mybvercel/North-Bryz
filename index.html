@@ -26,6 +26,7 @@ body{margin:0;background:var(--cream);color:var(--ink);
 h1,h2,h3,h4{font-family:"Playfair Display",Georgia,serif;font-weight:600;color:var(--ink);line-height:1.15;margin:0;}
 a{text-decoration:none;color:inherit}
 img{display:block;max-width:100%}
+[hidden]{display:none!important}
 .wrap{max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
 .eyebrow{font-family:"Poppins",sans-serif;font-weight:500;font-size:12px;letter-spacing:.28em;
   text-transform:uppercase;color:var(--tan-deep);margin:0 0 16px;display:flex;align-items:center;gap:10px}
@@ -80,10 +81,10 @@ img{display:block;max-width:100%}
     linear-gradient(0deg, rgba(52,34,38,.42) 0%, rgba(52,34,38,0) 30%)}
 .hero-inner{position:relative;z-index:3;flex:1;display:flex;align-items:center;padding-top:84px}
 .hero-inner .wrap{width:100%;display:flex;justify-content:space-between;align-items:flex-start;gap:24px}
-.hero-title{font-family:"Poppins",sans-serif;color:#fff;font-weight:300;letter-spacing:-.01em;line-height:1.24;
-  font-size:clamp(20px,2.7vw,34px);max-width:none;text-shadow:0 2px 24px rgba(40,25,28,.35)}
+.hero-title{font-family:"Poppins",sans-serif;color:#fff;font-weight:300;letter-spacing:-.01em;line-height:1.32;
+  font-size:clamp(17px,2.05vw,28px);max-width:none;text-shadow:0 2px 24px rgba(40,25,28,.35)}
 .hero-title b{font-weight:700}
-.hero-sub{color:rgba(255,255,255,.82);font-size:clamp(14px,1.4vw,16px);max-width:38ch;margin:22px 0 0;
+.hero-sub{color:rgba(255,255,255,.82);font-size:clamp(13px,1.3vw,15px);max-width:38ch;margin:18px 0 0;
   text-shadow:0 1px 14px rgba(40,25,28,.4)}
 .gallery{display:flex;align-items:center;gap:12px;color:#fff;background:none;border:0;cursor:pointer;padding:6px;margin-top:8px}
 .gallery .g-circle{width:60px;height:60px;border-radius:50%;border:1.5px solid rgba(255,255,255,.6);display:grid;place-items:center;transition:.25s}
@@ -94,8 +95,9 @@ img{display:block;max-width:100%}
 /* chips + carrusel */
 .hero-bottom{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:flex-end;gap:20px;
   padding:0 96px clamp(20px,3vw,34px) clamp(20px,4vw,40px);flex-wrap:wrap}
-.chips{display:flex;flex-wrap:wrap;gap:10px;max-width:360px}
-.chip{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:100px;color:#fff;font-size:13.5px;font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:13px;max-width:440px}
+.chip{display:inline-flex;align-items:center;gap:9px;padding:12px 20px;border-radius:100px;color:#fff;font-size:14px;font-weight:500}
+.chip svg{flex:none}
 .chip svg{color:rgba(255,255,255,.9)}
 
 .carousel{width:min(560px,100%)}
@@ -205,6 +207,41 @@ footer a:hover{color:var(--tan)}
   box-shadow:0 14px 34px -10px rgba(37,211,102,.6);font-family:"Poppins";font-weight:600;font-size:14.5px;transition:.2s}
 .wa-float:hover{transform:translateY(-2px)}
 @media(max-width:520px){.wa-float span{display:none}.wa-float{padding:16px;border-radius:50%}}
+
+/* ===== Modal de turnos ===== */
+.bk-overlay{position:fixed;inset:0;z-index:120;background:rgba(43,39,35,.55);backdrop-filter:blur(4px);display:flex;align-items:flex-start;justify-content:center;padding:24px 16px;overflow:auto}
+.bk-modal{position:relative;background:var(--cream);width:100%;max-width:560px;border-radius:26px;padding:clamp(24px,4vw,38px);box-shadow:0 40px 90px -30px rgba(43,39,35,.6);margin:auto}
+.bk-close{position:absolute;top:16px;right:16px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;font-size:16px;display:grid;place-items:center}
+.bk-title{font-family:"Playfair Display",serif;font-size:26px;margin:0 4px 4px 0}
+.bk-sub{color:var(--muted);font-size:14px;margin:0 0 20px}
+.bk-step{font-family:"Poppins";font-weight:600;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--tan-deep);margin:22px 0 12px}
+.bk-treats{display:flex;flex-wrap:wrap;gap:9px}
+.bk-chip{padding:10px 15px;border-radius:100px;border:1.5px solid var(--line);background:#fff;color:var(--ink);font-family:"Poppins";font-size:13.5px;cursor:pointer;transition:.15s}
+.bk-chip:hover{border-color:var(--tan)}
+.bk-chip.on{background:var(--tan);color:#fff;border-color:var(--tan)}
+.bk-days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.bk-day{flex:none;width:58px;padding:10px 0;border-radius:14px;border:1.5px solid var(--line);background:#fff;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;transition:.15s;font-family:"Poppins"}
+.bk-day span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.bk-day b{font-size:18px;color:var(--ink)}
+.bk-day:hover{border-color:var(--tan)}
+.bk-day.on{background:var(--tan);border-color:var(--tan)}
+.bk-day.on span,.bk-day.on b{color:#fff}
+.bk-times{display:flex;flex-wrap:wrap;gap:8px;min-height:20px}
+.bk-hint{color:var(--muted);font-size:13px;font-style:italic}
+.bk-time{padding:9px 15px;border-radius:10px;border:1.5px solid var(--line);background:#fff;color:var(--ink);font-family:"Poppins";font-size:13.5px;cursor:pointer;transition:.15s}
+.bk-time:hover:not(.off){border-color:var(--tan)}
+.bk-time.on{background:var(--tan);color:#fff;border-color:var(--tan)}
+.bk-time.off{opacity:.4;cursor:not-allowed;text-decoration:line-through}
+.bk-input{width:100%;margin-top:4px;padding:14px 16px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font-family:"Poppins";font-size:15px;color:var(--ink)}
+.bk-input:focus{outline:none;border-color:var(--tan)}
+.bk-submit{width:100%;margin-top:20px;padding:15px;border-radius:100px;border:0;background:#25D366;color:#fff;font-family:"Poppins";font-weight:600;font-size:15px;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:10px}
+.bk-submit:hover:not(:disabled){transform:translateY(-2px)}
+.bk-submit:disabled{background:#c9c1b6;cursor:not-allowed}
+.bk-note{color:var(--muted);font-size:12px;text-align:center;margin:12px 0 0}
+.bk-success{text-align:center;padding:14px 0}
+.bk-okic{width:66px;height:66px;border-radius:50%;background:#e7f3ea;color:#25a34a;display:grid;place-items:center;font-size:32px;margin:0 auto 18px}
+.bk-success h3{font-family:"Playfair Display",serif;font-size:24px;margin:0 0 10px}
+.bk-success p{color:var(--muted);font-size:15px;margin:0 auto 8px;max-width:40ch}
 </style>
 </head>
 <body>
@@ -227,7 +264,7 @@ footer a:hover{color:var(--tan)}
 
   <div class="nav-right">
     <button class="nav-ic glass hide-m" aria-label="Buscar"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></button>
-    <a href="#precios" class="nav-ic glass hide-m" aria-label="Turnos"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg></a>
+    <button class="nav-ic glass hide-m" id="bookNav" aria-label="Reservar turno"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg></button>
     <button class="nav-ic glass" id="waNav" aria-label="WhatsApp"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm5.9 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.5-1.2-2.9s.7-2 1-2.3c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.9 1.4 1.9 2.3 1.3 1.1 2.3 1.5 2.6 1.6.2.1.4.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.3.1.7-.1 1.3Z"/></svg></button>
   </div>
 </nav>
@@ -261,11 +298,11 @@ footer a:hover{color:var(--tan)}
 
   <div class="hero-bottom">
     <div class="chips">
-      <span class="chip glass"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 3 2 4 5 5-3 1-4 2-5 5-1-3-2-4-5-5 3-1 4-2 5-5Z"/></svg> Facial</span>
-      <span class="chip glass"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 3 2 4 5 5-3 1-4 2-5 5-1-3-2-4-5-5 3-1 4-2 5-5Z"/></svg> Corporal</span>
-      <span class="chip glass"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 3 2 4 5 5-3 1-4 2-5 5-1-3-2-4-5-5 3-1 4-2 5-5Z"/></svg> Depilación</span>
-      <span class="chip glass"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 3 2 4 5 5-3 1-4 2-5 5-1-3-2-4-5-5 3-1 4-2 5-5Z"/></svg> Radiofrecuencia</span>
-      <span class="chip glass"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 3 2 4 5 5-3 1-4 2-5 5-1-3-2-4-5-5 3-1 4-2 5-5Z"/></svg> Moldeo</span>
+      <span class="chip glass"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01M9.5 15c1.4 1 3.6 1 5 0"/></svg> Facial</span>
+      <span class="chip glass"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.4"/><path d="M12 8v7M8 11l4-1 4 1M9.5 21l2.5-6 2.5 6"/></svg> Corporal</span>
+      <span class="chip glass"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3.5M12 18.5V22M2 12h3.5M18.5 12H22M5 5l2.4 2.4M16.6 16.6 19 19"/></svg> Depilación</span>
+      <span class="chip glass"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="1.6"/><path d="M8.5 8.5a5 5 0 0 0 0 7M15.5 8.5a5 5 0 0 1 0 7M6 6a9 9 0 0 0 0 12M18 6a9 9 0 0 1 0 12"/></svg> Radiofrecuencia</span>
+      <span class="chip glass"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h5M8 9l-3 3 3 3M21 12h-5M16 9l3 3-3 3M12 4v16"/></svg> Moldeo</span>
     </div>
 
     <div class="carousel">
@@ -411,6 +448,36 @@ footer a:hover{color:var(--tan)}
   </div>
 </footer>
 
+<!-- MODAL DE TURNOS -->
+<div class="bk-overlay" id="bkOverlay" hidden>
+  <div class="bk-modal" role="dialog" aria-modal="true" aria-label="Reservar turno">
+    <button class="bk-close" id="bkClose" aria-label="Cerrar">✕</button>
+    <div id="bkForm">
+      <h3 class="bk-title">Reservá tu turno</h3>
+      <p class="bk-sub">Elegí y te lo confirmamos por WhatsApp al instante.</p>
+      <p class="bk-step">1 · ¿Qué te querés hacer?</p>
+      <div class="bk-treats" id="bkTreats"></div>
+      <p class="bk-step">2 · Elegí el día</p>
+      <div class="bk-days" id="bkDays"></div>
+      <p class="bk-step">3 · Elegí el horario</p>
+      <div class="bk-times" id="bkTimes"><span class="bk-hint">Elegí un día primero.</span></div>
+      <p class="bk-step">4 · Tus datos</p>
+      <input class="bk-input" id="bkName" placeholder="Tu nombre y apellido" autocomplete="name">
+      <button class="bk-submit" id="bkSubmit" disabled>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Z"/></svg>
+        Confirmar y enviar por WhatsApp
+      </button>
+      <p class="bk-note">Mahatma Gandhi 670, Córdoba · Lun a Vie 9–19h · Sáb 9–13h</p>
+    </div>
+    <div class="bk-success" id="bkSuccess" hidden>
+      <div class="bk-okic">✓</div>
+      <h3 id="bkOkTitle">¡Listo!</h3>
+      <p id="bkOkText"></p>
+      <button class="bk-submit" id="bkDone" style="background:var(--tan);max-width:200px;margin:18px auto 0">Cerrar</button>
+    </div>
+  </div>
+</div>
+
 <button class="wa-float" id="waFloat">
   <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm5.9 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.5-1.2-2.9s.7-2 1-2.3c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.9 1.4 1.9 2.3 1.3 1.1 2.3 1.5 2.6 1.6.2.1.4.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.3.1.7-.1 1.3Z"/></svg>
   <span>¿Hablamos?</span>
@@ -431,7 +498,7 @@ footer a:hover{color:var(--tan)}
 
   /* WhatsApp */
   var wa='https://wa.me/543516889818?text='+encodeURIComponent('Hola North Bryz 👋 quiero reservar una valoración.');
-  ['waFloat','waMain','waNav','waGallery'].forEach(function(id){var e=document.getElementById(id);if(e)e.addEventListener('click',function(){window.open(wa,'_blank','noopener')})});
+  ['waFloat','waMain','waNav'].forEach(function(id){var e=document.getElementById(id);if(e)e.addEventListener('click',function(){window.open(wa,'_blank','noopener')})});
 
   /* carrusel */
   var cards=document.getElementById('cards'), fill=document.getElementById('cFill'), cur=document.getElementById('cCur'), next=document.getElementById('cNext');
@@ -440,6 +507,61 @@ footer a:hover{color:var(--tan)}
   if(cards){ cards.addEventListener('scroll',upd,{passive:true}); upd();
     next.addEventListener('click',function(){ var max=cards.scrollWidth-cards.clientWidth;
       if(cards.scrollLeft>=max-4) cards.scrollTo({left:0}); else cards.scrollBy({left:210}); }); }
+})();
+</script>
+
+<script>
+/* ===== Sistema de turnos (front-end) ===== */
+(function(){
+  var STORE='nb_reservas', WA='543516889818';
+  var TREATS=['Valoración inicial (sin cargo)','Limpieza facial profunda','Radiofrecuencia facial','Moldeo corporal (Velashape II)','Tonificación muscular (CM Slim)','Rejuvenecimiento facial (Fraxface)','Depilación láser'];
+  var DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+  var WD=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  var sel={treat:null,day:null,time:null};
+  var ov=document.getElementById('bkOverlay');
+  if(!ov) return;
+  var $=function(id){return document.getElementById(id)};
+  function load(){try{return JSON.parse(localStorage.getItem(STORE))||[]}catch(e){return[]}}
+  function save(a){try{localStorage.setItem(STORE,JSON.stringify(a))}catch(e){}}
+  function takenAt(f){return load().filter(function(x){return x.fecha===f&&x.estado!=='cancelado'}).map(function(x){return x.hora})}
+  function iso(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+
+  function render(){
+    var tw=$('bkTreats');tw.innerHTML='';
+    TREATS.forEach(function(t){var b=document.createElement('button');b.type='button';b.className='bk-chip'+(sel.treat===t?' on':'');b.textContent=t;b.onclick=function(){sel.treat=t;render();upd()};tw.appendChild(b)});
+    var dw=$('bkDays');dw.innerHTML='';var base=new Date();base.setHours(0,0,0,0);var c=0,i=0;
+    while(c<14&&i<40){var dt=new Date(base);dt.setDate(base.getDate()+i);i++;if(dt.getDay()===0)continue;c++;
+      var f=iso(dt);var b=document.createElement('button');b.type='button';b.className='bk-day'+(sel.day===f?' on':'');
+      b.innerHTML='<span>'+WD[dt.getDay()]+'</span><b>'+dt.getDate()+'</b>';
+      b.onclick=(function(f){return function(){sel.day=f;sel.time=null;render();upd()}})(f);dw.appendChild(b)}
+    var tm=$('bkTimes');tm.innerHTML='';
+    if(!sel.day){tm.innerHTML='<span class="bk-hint">Elegí un día primero.</span>';return}
+    var d=new Date(sel.day+'T00:00');var end=d.getDay()===6?13:19;var tk=takenAt(sel.day);
+    var now=new Date();var today=iso(now)===sel.day;
+    for(var h=9;h<=end;h++){var hora=('0'+h).slice(-2)+':00';var off=tk.indexOf(hora)>=0||(today&&h<=now.getHours());
+      var b=document.createElement('button');b.type='button';b.className='bk-time'+(sel.time===hora?' on':'')+(off?' off':'');b.textContent=hora;b.disabled=off;
+      if(tk.indexOf(hora)>=0)b.title='Reservado';
+      if(!off)b.onclick=(function(hora){return function(){sel.time=hora;render();upd()}})(hora);tm.appendChild(b)}
+  }
+  function upd(){$('bkSubmit').disabled=!(sel.treat&&sel.day&&sel.time&&$('bkName').value.trim())}
+  function open(){sel={treat:null,day:null,time:null};$('bkName').value='';$('bkForm').hidden=false;$('bkSuccess').hidden=true;render();upd();ov.hidden=false;document.body.style.overflow='hidden'}
+  function close(){ov.hidden=true;document.body.style.overflow=''}
+
+  $('bkName').addEventListener('input',upd);
+  $('bkClose').addEventListener('click',close);
+  $('bkDone').addEventListener('click',close);
+  ov.addEventListener('click',function(e){if(e.target===ov)close()});
+  $('bkSubmit').addEventListener('click',function(){
+    var nom=$('bkName').value.trim();if(!(sel.treat&&sel.day&&sel.time&&nom))return;
+    var arr=load();arr.push({id:Date.now(),fecha:sel.day,hora:sel.time,tratamiento:sel.treat,nombre:nom,estado:'pendiente'});save(arr);
+    var d=new Date(sel.day+'T00:00');var ftxt=DIAS[d.getDay()]+' '+d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear();
+    var msg='Hola North Bryz 👋 Quiero reservar un turno:%0A%0A• Tratamiento: '+sel.treat+'%0A• Día: '+ftxt+'%0A• Horario: '+sel.time+' hs%0A• Nombre: '+nom+'%0A%0A¡Gracias!';
+    window.open('https://wa.me/'+WA+'?text='+msg,'_blank','noopener');
+    $('bkOkTitle').textContent='¡Listo, '+nom.split(' ')[0]+'!';
+    $('bkOkText').innerHTML='Tu turno para <b>'+sel.treat+'</b> el <b>'+ftxt+' a las '+sel.time+' hs</b> quedó registrado. Terminá de confirmarlo en el WhatsApp que abrimos.';
+    $('bkForm').hidden=true;$('bkSuccess').hidden=false;
+  });
+  ['waGallery','bookNav'].forEach(function(id){var e=$(id);if(e)e.addEventListener('click',function(ev){ev.preventDefault();open()})});
 })();
 </script>
 </body>
